@@ -35,8 +35,18 @@ window.renderStatistics = function (ctx, players, times) {
 
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + GAP, GAP * 4);
-  ctx.fillText('Список результатов:', CLOUD_X + GAP, GAP * 6);
+
+  var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
+  var textOne = CLOUD_TEXT.split('\n', 1);
+  var textTwo = CLOUD_TEXT.split('\n')[CLOUD_TEXT.split('\n').length - 1];
+
+  var splitText = function () {
+    for (var i = 0; i < CLOUD_TEXT.length; i++) {
+      ctx.fillText(textOne, CLOUD_X + GAP, GAP * 4);
+      ctx.fillText(textTwo, CLOUD_X + GAP, GAP * 6);
+    }
+  };
+  splitText();
 
   var maxTime = getMaxElement(times);
   renderHistogram(ctx, players, times, maxTime);
@@ -44,7 +54,7 @@ window.renderStatistics = function (ctx, players, times) {
 
 var renderHistogram = function (ctx, players, times, maxTime) {
   for (var i = 0; i < players.length; i++) {
-    var randomColor = Math.random().toFixed(1);
+    var randomColor = (Math.random() * 100);
     var playerTime = Math.round(times[i]);
     var barHeight = playerTime * COLUMN_HEIGHT / (maxTime - 0);
     var COLUMN_X = CLOUD_X + HISTOGRAM_GAP + (COLUMN_WIDTH + COLUMNS_GAP) * i;
@@ -53,7 +63,7 @@ var renderHistogram = function (ctx, players, times, maxTime) {
     ctx.fillText(players[i], COLUMN_X, CLOUD_HEIGHT - GAP / 2);
     ctx.fillText(playerTime, COLUMN_X, CLOUD_Y + COLUMN_HEIGHT - barHeight / 2);
 
-    ctx.fillStyle = players[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'rgba(0, 0, 255, ' + randomColor + ')';
+    ctx.fillStyle = players[i] === 'Вы' ? 'rgba(255, 0, 0, 1)' : 'hsl(240, ' + randomColor + '%, 50%';
     ctx.fillRect(CLOUD_X + HISTOGRAM_GAP + (COLUMN_WIDTH + COLUMNS_GAP) * i, CLOUD_HEIGHT - GAP * 2, COLUMN_WIDTH, barHeight * (-1));
   }
 };
