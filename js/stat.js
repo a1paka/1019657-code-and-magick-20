@@ -13,6 +13,11 @@ var COLUMN_HEIGHT = 150; // максимальная высота колонки
 var COLUMNS_GAP = 50; // расстояние между колонками
 var HISTOGRAM_GAP = 40; // расстояние гистограммы от левого края
 
+var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
+var CLOUD_TEXT_Y = 40;
+var CLOUD_TEXT_X = 120;
+var CLOUD_TEXT_GAP = 20;
+
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
@@ -33,20 +38,18 @@ window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
+  var splitText = CLOUD_TEXT.split('\n');
 
-  var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
-  var textOne = CLOUD_TEXT.split('\n', 1);
-  var textTwo = CLOUD_TEXT.split('\n')[CLOUD_TEXT.split('\n').length - 1];
+  splitText.forEach(function (value, index) {
+    ctx.fillStyle = '#000';
+    ctx.font = '16px PT Mono';
 
-  var splitText = function () {
-    for (var i = 0; i < CLOUD_TEXT.length; i++) {
-      ctx.fillText(textOne, CLOUD_X + GAP, GAP * 4);
-      ctx.fillText(textTwo, CLOUD_X + GAP, GAP * 6);
+    if (index !== 0) {
+      CLOUD_TEXT_Y += CLOUD_TEXT_GAP;
     }
-  };
-  splitText();
+    ctx.fillText(value, CLOUD_TEXT_X, CLOUD_TEXT_Y);
+  });
+
 
   var maxTime = getMaxElement(times);
   renderHistogram(ctx, players, times, maxTime);
