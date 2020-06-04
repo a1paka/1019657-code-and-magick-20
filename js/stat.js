@@ -40,11 +40,11 @@ window.renderStatistics = function (ctx, players, times) {
 
   var splitText = CLOUD_TEXT.split('\n');
 
-  splitText.forEach(function (value, index) {
+  splitText.forEach(function (value, i) {
     ctx.fillStyle = '#000';
     ctx.font = '16px PT Mono';
 
-    if (index !== 0) {
+    if (i !== 0) {
       CLOUD_TEXT_Y += CLOUD_TEXT_GAP;
     }
     ctx.fillText(value, CLOUD_TEXT_X, CLOUD_TEXT_Y);
