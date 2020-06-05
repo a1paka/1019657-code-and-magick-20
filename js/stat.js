@@ -14,8 +14,6 @@ var COLUMNS_GAP = 50; // расстояние между колонками
 var HISTOGRAM_GAP = 40; // расстояние гистограммы от левого края
 
 var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
-var CLOUD_TEXT_Y = 40;
-var CLOUD_TEXT_X = 120;
 var CLOUD_TEXT_GAP = 20;
 
 var renderCloud = function (ctx, x, y, color) {
@@ -38,18 +36,17 @@ window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  var splitText = CLOUD_TEXT.split('\n');
+  var text = CLOUD_TEXT.split('\n');
 
-  splitText.forEach(function (value, i) {
+  var renderText = function () {
     ctx.fillStyle = '#000';
     ctx.font = '16px PT Mono';
 
-    if (i !== 0) {
-      CLOUD_TEXT_Y += CLOUD_TEXT_GAP;
+    for (var i = 0; i < text.length; i++) {
+      ctx.fillText(text[i], CLOUD_X + CLOUD_TEXT_GAP, CLOUD_Y + CLOUD_TEXT_GAP + CLOUD_TEXT_GAP * i);
     }
-    ctx.fillText(value, CLOUD_TEXT_X, CLOUD_TEXT_Y);
-  });
-
+  };
+  renderText();
 
   var maxTime = getMaxElement(times);
   renderHistogram(ctx, players, times, maxTime);
