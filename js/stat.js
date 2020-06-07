@@ -24,9 +24,9 @@ var renderText = function (ctx, text) {
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
 
-  text = CLOUD_TEXT.split('\n');
-  for (var i = 0; i < text.length; i++) {
-    ctx.fillText(text[i], CLOUD_X + CLOUD_TEXT_GAP, CLOUD_Y + CLOUD_TEXT_GAP + CLOUD_TEXT_GAP * i);
+  var splitText = text.split('\n');
+  for (var i = 0; i < splitText.length; i++) {
+    ctx.fillText(splitText[i], CLOUD_X + CLOUD_TEXT_GAP, CLOUD_Y + CLOUD_TEXT_GAP + CLOUD_TEXT_GAP * i);
   }
 };
 
