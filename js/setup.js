@@ -33,16 +33,16 @@ var renderWizardElement = function (wizard) {
   return wizardElement;
 };
 
-var wizards = [];
-
 var numberOfWizards = function (number) {
+  var wizards = [];
   for (var i = 0; i < number; i++) {
     wizards.push(renderWizard());
   }
+  return wizards;
 };
-numberOfWizards(NUMBER_OF_WISARDS);
 
-var createDom = function () {
+var createDom = function (wizards) {
+  wizards = numberOfWizards(NUMBER_OF_WISARDS);
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizardElement(wizards[i]));
