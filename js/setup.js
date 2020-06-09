@@ -34,18 +34,21 @@ var renderWizardElement = function (wizard) {
 };
 
 var wizards = [];
-for (var i = 0; i < NUMBER_OF_WISARDS; i++) {
-  wizards[i] = renderWizard();
-}
+
+var numberOfWizards = function (number) {
+  for (var i = 0; i < number; i++) {
+    wizards.push(renderWizard());
+  }
+};
+numberOfWizards(NUMBER_OF_WISARDS);
 
 var createDom = function () {
   var fragment = document.createDocumentFragment();
-  for (i = 0; i < wizards.length; i++) {
+  for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizardElement(wizards[i]));
   }
   similarListElement.appendChild(fragment);
 };
 createDom();
-
 
 document.querySelector('.setup-similar').classList.remove('hidden');
